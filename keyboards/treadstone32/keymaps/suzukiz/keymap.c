@@ -41,9 +41,15 @@ enum custom_keycodes {
 #define KC_C_GU LGUI_T(KC_C)
 #define KC_SSCT RCTL_T(KC_SLSH)
 #define KC_SCCT RCTL_T(JP_SCLN)
+#define KC_SCSF RSFT_T(JP_SCLN)
 #define KC_SSSF RSFT_T(KC_SLSH)
-#define KC_BSSF RCTL_T(JP_BSLS)
+#define KC_BLCT RCTL_T(JP_BSLS)
+#define KC_BLSF RSFT_T(JP_BSLS)
+#define KC_TICT RCTL_T(JP_TILD)
 #define KC_ENSF RSFT_T(KC_ENT)
+#define KC_DTAL RALT_T(KC_DOT)
+#define KC_CMGU RGUI_T(KC_COMM)
+#define KC_QUCT RCTL_T(JP_QUES)
 
 // Lower layer mod tap
 #define KC_F6SF LSFT_T(KC_F6)
@@ -75,7 +81,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|---------+---------+---------+---------+---------+---------+---------+---------+---------+---------|
        KC_A_CT,     KC_S,     KC_D,     KC_F,     KC_G,     KC_H,     KC_J,     KC_K,     KC_L,  KC_SCCT,
   //|---------+---------+---------+---------+---------+---------+---------+---------+---------+---------|
-       KC_Z_SF,  KC_X_AL,  KC_C_GU,     KC_V,     KC_B,     KC_N,     KC_M,  KC_COMM,   KC_DOT,  KC_SSSF,
+       KC_Z_SF,  KC_X_AL,  KC_C_GU,     KC_V,     KC_B,     KC_N,     KC_M,  KC_CMGU,  KC_DTAL,  KC_SSSF,
   //`---------+---------+---------+---------+---------+---------+---------+---------+---------+---------'
                                                KC_BSLO,  KC_SPRA
   //                                        `---------|---------'
@@ -87,7 +93,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|---------+---------+---------+---------+---------+---------+---------+---------+---------+---------|
        JP_EXLM,  C(KC_S),  XXXXXXX,   KC_DEL,   KC_ESC,  JP_ASTR,  JP_MINS,  JP_LBRC,  JP_RBRC,  JP_PLUS,
   //|---------+---------+---------+---------+---------+---------+---------+---------+---------+---------|
-       KC_LSFT,  XXXXXXX,  XXXXXXX,  XXXXXXX, JP_MKANA,   JP_YEN,  MC_BSLH,  JP_LABK,  JP_RABK,  JP_QUES,
+       KC_LSFT,  KC_LALT,  KC_LGUI,  KC_LCTL, JP_MKANA,   JP_YEN,  MC_BSLH,  JP_LABK,  JP_RABK,  JP_QUES,
   //`---------+---------+---------+---------+---------+---------+---------+---------+---------+---------'
                                                _______,  KC_MLAD
   //                                        `---------|---------'
@@ -97,9 +103,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //,---------------------------------------------------------------------------------------------------.
           KC_1,     KC_2,     KC_3,     KC_4,     KC_5,     KC_6,     KC_7,     KC_8,     KC_9,     KC_0,
   //|---------+---------+---------+---------+---------+---------+---------+---------+---------+---------|
-       KC_LCTL,  XXXXXXX,  KC_HOME,  KC_PGUP,   KC_TAB,  JP_COLN,   KC_ENT,    KC_UP,    JP_AT,  JP_TILD,
+       KC_LCTL,  XXXXXXX,  KC_HOME,  KC_PGUP,   KC_TAB,  JP_COLN,   KC_ENT,    KC_UP,    JP_AT,  KC_TICT,
   //|---------+---------+---------+---------+---------+---------+---------+---------+---------+---------|
-       KC_LSFT,  KC_LALT,   KC_END,  KC_PGDN,C(KC_TAB),  JP_PIPE,  KC_LEFT,  KC_DOWN,  KC_RGHT,  KC_BSSF,
+       KC_LSFT,  KC_LALT,   KC_END,  KC_PGDN,C(KC_TAB),  JP_PIPE,  KC_LEFT,  KC_DOWN,  KC_RGHT,  KC_BLSF,
   //`---------+---------+---------+---------+---------+---------+---------+---------+---------+---------'
                                                _______,  _______
   //                                        `---------|---------'
@@ -109,9 +115,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //,---------------------------------------------------------------------------------------------------.
         RESET,    RGBRST,  AG_NORM,  AG_SWAP,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,   KC_INS,  KC_PSCR,
   //|---------+---------+---------+---------+---------+---------+---------+---------+---------+---------|
-       RGB_TOG,  RGB_HUI,  RGB_SAI,  RGB_VAI,  XXXXXXX,  KC_MS_L,  KC_MS_D,  KC_MS_U,  KC_MS_R,  KC_NLCK,
+       RGB_TOG,  RGB_HUI,  RGB_SAI,  RGB_VAI,  XXXXXXX,  XXXXXXX,  KC_BTN1,  KC_MS_U,  KC_BTN2,  KC_NLCK,
   //|---------+---------+---------+---------+---------+---------+---------+---------+---------+---------|
-       RGB_MOD,  RGB_HUD,  RGB_SAD,  RGB_VAD,  XXXXXXX,  KC_BTN1,  KC_BTN2,  XXXXXXX,  XXXXXXX,  XXXXXXX,
+       RGB_MOD,  RGB_HUD,  RGB_SAD,  RGB_VAD,  XXXXXXX,  XXXXXXX,  KC_MS_L,  KC_MS_D,  KC_MS_R,  XXXXXXX,
   //`---------+---------+---------+---------+---------+---------+---------+---------+---------+---------'
                                                _______,  _______
   //                                        `---------|---------'
