@@ -93,7 +93,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|---------+---------+---------+---------+---------+---------+---------+---------+---------+---------|
        JP_EXLM,  C(KC_S),  XXXXXXX,   KC_DEL,   KC_ESC,  JP_ASTR,  JP_MINS,  JP_LBRC,  JP_RBRC,  JP_PLUS,
   //|---------+---------+---------+---------+---------+---------+---------+---------+---------+---------|
-       KC_LSFT,  KC_LALT,  KC_LGUI,  KC_LCTL, JP_MKANA,   JP_YEN,  MC_BSLH,  JP_LABK,  JP_RABK,  JP_QUES,
+       KC_LSFT,  KC_LALT,  KC_LGUI,  KC_LCTL, JP_MKANA,   JP_YEN,  MC_BSLH,  JP_LABK,  JP_RABK,  JP_UNDS,
   //`---------+---------+---------+---------+---------+---------+---------+---------+---------+---------'
                                                _______,  KC_MLAD
   //                                        `---------|---------'
@@ -114,10 +114,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_ADJUST] = LAYOUT(
   //,---------------------------------------------------------------------------------------------------.
         RESET,    RGBRST,  AG_NORM,  AG_SWAP,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,   KC_INS,  KC_PSCR,
+  //|---------+---------+---------+---------+---------+--------+---------+---------+---------+---------|
+       RGB_TOG,  RGB_HUI,  RGB_SAI,  RGB_VAI,   KC_F12,  KC_F11,  KC_BTN1,  KC_MS_U,  KC_BTN2,  KC_NLCK,
   //|---------+---------+---------+---------+---------+---------+---------+---------+---------+---------|
-       RGB_TOG,  RGB_HUI,  RGB_SAI,  RGB_VAI,  XXXXXXX,  XXXXXXX,  KC_BTN1,  KC_MS_U,  KC_BTN2,  KC_NLCK,
-  //|---------+---------+---------+---------+---------+---------+---------+---------+---------+---------|
-       RGB_MOD,  RGB_HUD,  RGB_SAD,  RGB_VAD,  XXXXXXX,  XXXXXXX,  KC_MS_L,  KC_MS_D,  KC_MS_R,  XXXXXXX,
+       RGB_MOD,  RGB_HUD,  RGB_SAD,  RGB_VAD,  JP_MHEN, JP_HENK,  KC_MS_L,  KC_MS_D,  KC_MS_R,  XXXXXXX,
   //`---------+---------+---------+---------+---------+---------+---------+---------+---------+---------'
                                                _______,  _______
   //                                        `---------|---------'

@@ -23,18 +23,22 @@ enum macro_keycodes {
 
 #define KC_ KC_TRNS
 #define KC_RST RESET
-#define KC_L_SPC LT(_LOWER, KC_SPC)     // lower
+#define KC_L_SPC LT(_LOWER, KC_SPC)  // lower
 #define KC_L_KANA LT(_LOWER, JP_MKANA)  // lower
-#define KC_R_ENT LT(_RAISE, KC_ENT)     // raise
-#define KC_R_SPC LT(_RAISE, KC_SPC)     // raise
-#define KC_G_JA LGUI_T(KC_LANG1)        // cmd or win
-#define KC_G_EN LGUI_T(KC_LANG2)        // cmd or win
-#define KC_C_BS LCTL_T(KC_BSPC)         // ctrl
-#define KC_A_DEL ALT_T(KC_DEL)          // alt
+#define KC_L_BS LT(_LOWER, KC_BSPC)  // lower
+#define KC_R_ENT LT(_RAISE, KC_ENT)  // raise
+#define KC_R_SPC LT(_RAISE, KC_SPC)  // raise
+#define KC_G_JA LGUI_T(KC_LANG1)  // cmd or win
+#define KC_G_EN LGUI_T(KC_LANG2)  // cmd or win
+#define KC_C_BS LCTL_T(KC_BSPC)  // ctrl
+#define KC_A_DEL ALT_T(KC_DEL)  // alt
 #define KC_C_TAB CTL_T(KC_TAB)
 #define KC_C_KANA CTL_T(JP_MKANA)
 #define KC_G_KANA LGUI_T(JP_MKANA)
 #define KC_L_TAB LT(_LOWER, KC_TAB)
+#define KC_BLSF RSFT_T(JP_BSLS)
+#define KC_DTAL RALT_T(KC_DOT)
+#define KC_CMGU RGUI_T(KC_COMM)
 #define MC_BSLH A(JP_YEN)
 
 // clang-format off
@@ -46,14 +50,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+---------+--------+---------+--------|   |--------+---------+--------+---------+--------+--------|
      _______, KC_A   , KC_S    , KC_D   , KC_F    , KC_G   ,     KC_H   , KC_J    , KC_K   , KC_L    , JP_SCLN, _______,
   //|--------+--------+---------+--------+---------+--------|   |--------+---------+--------+---------+--------+--------|
-     _______, KC_Z   , KC_X    , KC_C   , KC_V    , KC_B   ,     KC_N   , KC_M    , KC_COMM, KC_DOT  , KC_SLSH, _______,
+     _______, KC_Z   , KC_X    , KC_C   , KC_V    , KC_B   ,     KC_N   , KC_M    , KC_COMM, KC_DTAL , KC_SLSH, _______,
   //`--------+--------+---------+--------+---------+--------/   \--------+---------+--------+---------+--------+--------'
-                       KC_LSFT , KC_C_BS, LOWER   , KC_G_KANA,   KC_RALT, KC_R_SPC, KC_RSFT, KC_C_BS
+                       KC_LSFT , KC_C_BS, LOWER   , KC_LGUI,     KC_RALT, KC_R_SPC, KC_RSFT, KC_RGUI
   //                 `----------+--------+---------+--------'   `--------+---------+--------+---------'
   ),
 
   //   \ ^ ! & |  @ = + * % -
-  // ( # $ " ' ~  ← ↓ ↑ → ` )
+  // ( # $ " ' ~  ← ↓ ↑ → ` ) 
   //         { [  ] }
 
   [_RAISE] = LAYOUT( \
@@ -62,9 +66,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      _______, KC_1   , KC_2   , KC_3   , KC_4   , KC_5   ,     KC_6   , KC_7   , KC_8   , KC_9   , KC_0   , _______,
   //|--------+--------+--------+--------+--------+--------|   |--------+--------+--------+--------+--------+--------|
 //   KC_LPRN, KC_HASH, KC_DLR , KC_DQT , KC_QUOT, KC_TILD,     KC_LEFT, KC_DOWN, KC_UP  , KC_RGHT, KC_GRV , KC_RPRN,
-     _______, _______, _______, KC_HOME, KC_PGUP, KC_TAB ,     JP_COLN, KC_ENT , KC_UP  , JP_AT  , JP_TILD, KC_F12 ,
+     _______,JP_MKANA, _______, KC_HOME, KC_PGUP, KC_TAB ,     JP_COLN, KC_ENT , KC_UP  , JP_AT  , JP_TILD, KC_F12 ,
   //|--------+--------+--------+--------+--------+--------|   |--------+--------+--------+--------+--------+--------|
-     KC_F5  , _______, _______, KC_END , KC_PGDN,C(KC_TAB),    JP_PIPE, KC_LEFT, KC_DOWN, KC_RGHT, JP_BSLS, KC_F11 ,
+     KC_F5  ,JP_MEISU, _______, KC_END , KC_PGDN,C(KC_TAB),    JP_PIPE, KC_LEFT, KC_DOWN, KC_RGHT, KC_BLSF, KC_F11 ,
   //`--------+--------+--------+--------+--------+--------/   \--------+--------+--------+--------+--------+--------'
                        _______, _______, _______, _______,     _______, _______, _______, _______
   //                  `--------+--------+--------+--------'   `--------+--------+--------+--------'
@@ -76,7 +80,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+--------+--------|   |--------+--------+--------+--------+--------+--------|
      _______, JP_EXLM, C(KC_S), KC_MS_U, KC_DEL , KC_ESC ,     JP_ASTR, JP_MINS, JP_LBRC, JP_RBRC, JP_PLUS, _______,
   //|--------+--------+--------+--------+--------+--------|   |--------+--------+--------+--------+--------+--------|
-     _______, KC_BTN2, KC_MS_L, KC_MS_D, KC_MS_R, KC_BTN1,     JP_YEN , MC_BSLH, JP_LABK, JP_RABK, JP_QUES, _______,
+     _______, KC_BTN2, KC_MS_L, KC_MS_D, KC_MS_R, KC_BTN1,     JP_YEN , MC_BSLH, JP_LABK, JP_RABK, JP_UNDS, _______,
   //`--------+--------+--------+--------+--------+--------/   \--------+--------+--------+--------+--------+--------'
                        RESET  , _______, _______, _______,     _______, _______, _______, _______
   //                 `--------+--------+--------+--------'   `--------+--------+--------+--------'
