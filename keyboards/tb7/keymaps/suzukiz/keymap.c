@@ -8,12 +8,14 @@ bool isScrollMode;
 enum layer_names {
     _BASE,
     _RAISE,
+    _LOWER,
 };
 
 enum custom_keycodes {
     // clang-format off
     BASE = SAFE_RANGE,
     RAISE,
+    LOWER,
     MBTN1,
     MBTN2,
     MBTN3,
@@ -25,13 +27,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // clang-format off
   [_BASE] = LAYOUT( \
                 KC_SPC,   RAISE,
-     C(KC_TAB), KC_LSFT,  KC_ENT,
+     C(KC_TAB), KC_LSFT,  LOWER,
      MBTN1,     MBTN2,    MBTN3
   ),
   [_RAISE] = LAYOUT( \
                 KC_SPC,   KC_TRNS,
      KC_TAB,    KC_LALT,  KC_ESC,
      KC_LCTL,   KC_LGUI,  KC_LSFT
+  ),
+  [_LOWER] = LAYOUT( \
+                KC_SPC,   KC_ESC,
+     KC_LCTL,   KC_LGUI,  KC_TRNS,
+     KC_LEFT,   KC_RGHT,  KC_C
   )
     // clang-format on
 };
@@ -81,6 +88,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 layer_on(_RAISE);
             } else {
                 layer_off(_RAISE);
+            }
+            return false;
+        case LOWER:
+            if (record->event.pressed) {
+                layer_on(_LOWER);
+            } else {
+                layer_off(_LOWER);
             }
             return false;
     }
