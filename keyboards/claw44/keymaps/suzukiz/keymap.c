@@ -11,6 +11,7 @@ enum layer_number {
     _QWERTY = 0,
     _RAISE,
     _LOWER,
+    _ADJUST,
 };
 
 #define KC_ KC_TRNS

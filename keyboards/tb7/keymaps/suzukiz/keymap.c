@@ -31,7 +31,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      MBTN1,     MBTN2,    MBTN3
   ),
   [_RAISE] = LAYOUT( \
-                KC_SPC,   KC_TRNS,
+                KC_SPC,   KC_TRNS, 
      KC_TAB,    KC_LALT,  KC_ESC,
      KC_LCTL,   KC_LGUI,  KC_LSFT
   ),
@@ -117,7 +117,10 @@ int moment_spd(int spd, int ch) {
     const int mx = 1000;
 
     int n = moment[ch];
-    if (abs(spd) > 50) {
+    if (abs(spd) > 70) {
+        spd *= abs(spd) > 100 ? 3 : 2;
+    }
+    if ((n < 0 && spd > 0) || (n > 0 && spd < 0)) {
         spd *= 2;
     }
     n += spd;
