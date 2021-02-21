@@ -40,11 +40,11 @@ enum layer_number {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT_split_3x6_3(
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-       KC_TAB,    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                         KC_Y,    KC_U,    KC_I,    KC_O,   KC_P,  KC_BSPC,
+      _______,    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                         KC_Y,    KC_U,    KC_I,    KC_O,   KC_P,  _______,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_LCTL,    KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                         KC_H,    KC_J,    KC_K,    KC_L, KC_SCLN, KC_QUOT,
+      KC_LCTL,    KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                         KC_H,    KC_J,    KC_K,    KC_L, KC_SCLN, _______,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_LSFT,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                         KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH,  KC_ESC,
+      KC_LSFT,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                         KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH, _______,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
                                           KC_LGUI, KC_C_BS,   LOWER,   KC_RASPC, KC_RSFT, KC_RALT
                                       //`--------------------------'  `--------------------------'
@@ -52,11 +52,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [1] = LAYOUT_split_3x6_3(
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-       KC_TAB,    KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                         KC_6,    KC_7,    KC_8,    KC_9,    KC_0, KC_BSPC,
+      _______,    KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                         KC_6,    KC_7,    KC_8,    KC_9,    KC_0, _______,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_LCTL,JP_MKANA, XXXXXXX, KC_HOME, KC_PGUP,  KC_TAB,                      JP_COLN,  KC_ENT,   KC_UP,   JP_AT, JP_TILD, XXXXXXX,
+      KC_LCTL, _______, XXXXXXX, KC_HOME, KC_PGUP,  KC_TAB,                      JP_COLN,  KC_ENT,   KC_UP,   JP_AT, JP_TILD,  KC_F12,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_LSFT,JP_MEISU, XXXXXXX,  KC_END, KC_PGDN,C(KC_TAB),                     JP_PIPE, KC_LEFT, KC_DOWN, KC_RGHT, KC_BLSF, XXXXXXX,
+      KC_LSFT, _______, XXXXXXX,  KC_END, KC_PGDN,C(KC_TAB),                     JP_PIPE, KC_LEFT, KC_DOWN, KC_RGHT, KC_BLSF,  KC_F11,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
                                           KC_LSFT, _______,  ADJUST,    _______, _______, KC_RALT
                                       //`--------------------------'  `--------------------------'
@@ -64,11 +64,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [2] = LAYOUT_split_3x6_3(
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-       KC_TAB, JP_DQUO, JP_HASH,  JP_DLR, JP_PERC, JP_AMPR,                      JP_QUOT, JP_LPRN, JP_RPRN, JP_CIRC,  JP_EQL, KC_BSPC,
+      _______, JP_DQUO, JP_HASH,  JP_DLR, JP_PERC, JP_AMPR,                      JP_QUOT, JP_LPRN, JP_RPRN, JP_CIRC,  JP_EQL, _______,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_LCTL, JP_EXLM, XXXXXXX, XXXXXXX,  KC_DEL,  KC_ESC,                      JP_ASTR, JP_MINS, JP_LBRC, JP_RBRC, JP_PLUS,  KC_GRV,
+      KC_LCTL, JP_EXLM, XXXXXXX, XXXXXXX,  KC_DEL,  KC_ESC,                      JP_ASTR, JP_MINS, JP_LBRC, JP_RBRC, JP_PLUS, _______,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_LSFT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                       JP_YEN, MC_BSLH, JP_LABK, JP_RABK, JP_UNDS, KC_TILD,
+      KC_LSFT, XXXXXXX, XXXXXXX, XXXXXXX,JP_MEISU,JP_MKANA,                       JP_YEN, MC_BSLH, JP_LABK, JP_RABK, JP_UNDS, _______,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
                                           KC_LGUI, _______, _______,     ADJUST, _______, KC_RALT
                                       //`--------------------------'  `--------------------------'
