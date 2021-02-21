@@ -103,8 +103,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 void matrix_init_user(void) { init_paw3204(); }
 
-report_mouse_t mouse_rep;
-
 void keyboard_post_init_user() {
     debug_enable = true;
     debug_mouse  = true;
