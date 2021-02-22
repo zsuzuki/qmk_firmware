@@ -103,6 +103,8 @@ void put_key(uint8_t key) {
 void matrix_scan_user() {
     // Change cursor movement to scroll movement if layer is 1
     if (layer_state_is(1)) {
+        pointing_device_set_tap_enable(false);
+
         report_mouse_t mouse_rep = pointing_device_get_report();
 
         int  xspd   = mouse_rep.x;
@@ -114,8 +116,9 @@ void matrix_scan_user() {
         mouse_rep.y = 0;
 
         pointing_device_set_report(mouse_rep);
-    }
-    if (layer_state_is(2)) {
+    } else if (layer_state_is(2)) {
+        pointing_device_set_tap_enable(false);
+
         report_mouse_t mouse_rep = pointing_device_get_report();
         uint8_t        key       = KC_NO;
         const int      limspd    = 20;
@@ -135,6 +138,8 @@ void matrix_scan_user() {
         mouse_rep.y = 0;
         pointing_device_set_report(mouse_rep);
     } else {
+        pointing_device_set_tap_enable(true);
+
         report_mouse_t mouse_rep = pointing_device_get_report();
 
         float mx    = mouse_rep.x;
