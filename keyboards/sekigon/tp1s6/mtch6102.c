@@ -119,7 +119,8 @@ bool process_mtch6102(mtch6102_data_t const* const data, report_mouse_t* const r
         send_flag    = true;
     }
 
-    bool on_tap = (data->gesture == GES_TAP || data->gesture == GES_DOUBLE_TAP);
+    // bool on_tap = (data->gesture == GES_TAP || data->gesture == GES_DOUBLE_TAP);
+    bool on_tap = (data->gesture == GES_DOUBLE_TAP);
     if (tap_enable && (data->status & GESTURE) && on_tap) {
         rep_mouse->buttons = 1;
         release_button     = true;

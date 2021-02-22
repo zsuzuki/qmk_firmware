@@ -19,7 +19,7 @@
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     {{KC_BTN1, C(KC_TAB), KC_LSFT, KC_BTN2, MO(2), MO(1)}},
-    {{KC_SPC, KC_ENT, KC_LCTL, KC_LALT, KC_LGUI, _______}},
+    {{KC_SPC, KC_ENT, KC_BSPC, KC_LCTL, KC_LALT, _______}},
     {{KC_LCTL, KC_LALT, KC_TAB, KC_LSFT, _______, KC_LGUI}},
 };
 
@@ -45,7 +45,7 @@ struct VelHist {
     float history[10];
     int   count;
 };
-struct VelHist hist[2];
+struct VelHist hist[2] = {};
 
 static void update_history(struct VelHist* h, float n) {
     int index         = h->count % 10;
@@ -53,6 +53,9 @@ static void update_history(struct VelHist* h, float n) {
     h->count++;
 }
 static float get_average(struct VelHist* h) {
+    if (h->count == 0) {
+        return 0.0f;
+    }
     int   cnt = h->count > 10 ? 10 : h->count;
     float avg = 0.0f;
     for (int i = 0; i < cnt; i++) {
@@ -114,6 +117,8 @@ void matrix_scan_user() {
         mouse_rep.v = scroll_update(yspd, 1, ontch);
         mouse_rep.x = 0;
         mouse_rep.y = 0;
+
+        mouse_rep.buttons = 0;
 
         pointing_device_set_report(mouse_rep);
     } else if (layer_state_is(2)) {
