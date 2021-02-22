@@ -101,8 +101,8 @@ void put_key(uint8_t key) {
 }
 
 void matrix_scan_user() {
-    // Change cursor movement to scroll movement if layer is 1
     if (layer_state_is(1)) {
+        // Change cursor movement to scroll movement if layer is 1
         pointing_device_set_tap_enable(false);
 
         report_mouse_t mouse_rep = pointing_device_get_report();
@@ -117,6 +117,7 @@ void matrix_scan_user() {
 
         pointing_device_set_report(mouse_rep);
     } else if (layer_state_is(2)) {
+        // Arrow-key movement mode.
         pointing_device_set_tap_enable(false);
 
         report_mouse_t mouse_rep = pointing_device_get_report();
@@ -138,6 +139,7 @@ void matrix_scan_user() {
         mouse_rep.y = 0;
         pointing_device_set_report(mouse_rep);
     } else {
+        // normal: cursor movement
         pointing_device_set_tap_enable(true);
 
         report_mouse_t mouse_rep = pointing_device_get_report();
