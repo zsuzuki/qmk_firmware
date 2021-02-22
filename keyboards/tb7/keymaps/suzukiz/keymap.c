@@ -108,7 +108,7 @@ void keyboard_post_init_user() {
     debug_mouse  = true;
 }
 
-int moment[2];
+static int moment[2];
 
 int moment_spd(int spd, int ch) {
     const int th = 40;
@@ -218,10 +218,14 @@ void matrix_scan_user(void) {
                 mx -= lowspd;
             else if (mx < -lowspd)
                 mx += lowspd;
+            else
+                mx = 0.0f;
             if (my > lowspd)
                 my -= lowspd;
             else if (my < -lowspd)
                 my += lowspd;
+            else
+                my = 0.0f;
             mouse_rep.x = -my;
             mouse_rep.y = mx;
             moment_clr();
