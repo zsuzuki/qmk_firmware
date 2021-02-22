@@ -37,8 +37,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
   [_LOWER] = LAYOUT( \
                 KC_SPC,   KC_ESC,
-     KC_LCTL,   KC_LGUI,  KC_TRNS,
-     KC_LEFT,   KC_RGHT,  KC_C
+     KC_LSFT,   KC_TAB,   KC_TRNS,
+     KC_LCTL,   KC_LGUI,  KC_LALT
   )
     // clang-format on
 };
@@ -147,6 +147,14 @@ void moment_clr(void) {
     moment[1] = 0;
 }
 
+void put_key(uint8_t key) {
+    add_key(key);
+    send_keyboard_report();
+    wait_ms(150);
+    del_key(key);
+    send_keyboard_report();
+}
+
 void matrix_scan_user(void) {
     static int  cnt;
     static bool paw_ready;
@@ -175,11 +183,47 @@ void matrix_scan_user(void) {
             int xspd    = -x;
             mouse_rep.h = moment_spd(yspd, 0);
             mouse_rep.v = moment_spd(xspd, 1);
+        } else if (IS_LAYER_ON(_LOWER)) {
+            static uint8_t key    = KC_NO;
+            const int      limspd = 15;
+            uint8_t        nkey   = KC_NO;
+            if (y > limspd) {
+                nkey = KC_LEFT;
+            } else if (y < -limspd) {
+                nkey = KC_RIGHT;
+            } else if (x > limspd) {
+                nkey = KC_DOWN;
+            } else if (x < -limspd) {
+                nkey = KC_UP;
+            } else {
+                nkey = KC_NO;
+            }
+
+            if (key != nkey) {
+                if (nkey != KC_NO) {
+                    put_key(nkey);
+                }
+                key = nkey;
+            }
         } else {
-            int16_t yspd = (y * 5 + 1) / 6;
-            int16_t xspd = (x * 5 + 1) / 6;
-            mouse_rep.x  = -yspd;
-            mouse_rep.y  = xspd;
+            float xs = fabs(x);
+            float ys = fabs(y);
+            xs       = fmax(1.0f, (xs / 25.0f));
+            ys       = fmax(1.0f, (ys / 20.0f));
+            float mx = fmin(127.0f, fmax(-127.0f, x * xs));
+            float my = fmin(127.0f, fmax(-127.0f, y * ys));
+
+            const float lowspd = 5.0f;
+            if (mx > lowspd)
+                mx -= lowspd;
+            else if (mx < -lowspd)
+                mx += lowspd;
+            if (my > lowspd)
+                my -= lowspd;
+            else if (my < -lowspd)
+                my += lowspd;
+            mouse_rep.x = -my;
+            mouse_rep.y = mx;
             moment_clr();
         }
 
