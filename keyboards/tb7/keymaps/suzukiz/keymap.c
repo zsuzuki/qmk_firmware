@@ -43,38 +43,27 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // clang-format on
 };
 
+void report_button(bool pressed, int btn) {
+    report_mouse_t currentReport = pointing_device_get_report();
+    if (pressed) {
+        currentReport.buttons |= btn;
+    } else {
+        currentReport.buttons &= ~btn;
+    }
+    pointing_device_set_report(currentReport);
+    pointing_device_send();
+}
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    report_mouse_t currentReport = {};
     switch (keycode) {
         case MBTN1:
-            currentReport = pointing_device_get_report();
-            if (record->event.pressed) {
-                currentReport.buttons |= MOUSE_BTN1;
-            } else {
-                currentReport.buttons &= ~MOUSE_BTN1;
-            }
-            pointing_device_set_report(currentReport);
-            pointing_device_send();
+            report_button(record->event.pressed, MOUSE_BTN1);
             return false;
         case MBTN2:
-            currentReport = pointing_device_get_report();
-            if (record->event.pressed) {
-                currentReport.buttons |= MOUSE_BTN2;
-            } else {
-                currentReport.buttons &= ~MOUSE_BTN2;
-            }
-            pointing_device_set_report(currentReport);
-            pointing_device_send();
+            report_button(record->event.pressed, MOUSE_BTN2);
             return false;
         case MBTN3:
-            currentReport = pointing_device_get_report();
-            if (record->event.pressed) {
-                currentReport.buttons |= MOUSE_BTN3;
-            } else {
-                currentReport.buttons &= ~MOUSE_BTN3;
-            }
-            pointing_device_set_report(currentReport);
-            pointing_device_send();
+            report_button(record->event.pressed, MOUSE_BTN3);
             return false;
         case SCRL:
             if (record->event.pressed) {

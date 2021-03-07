@@ -16,10 +16,12 @@
 #include QMK_KEYBOARD_H
 #include "mtch6102.h"
 #include "pointing_device.h"
+#include <math.h>
+#include <keymap_jp.h>
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     {{KC_BTN1, C(KC_TAB), KC_LSFT, KC_BTN2, MO(2), MO(1)}},
-    {{KC_SPC, KC_ENT, KC_BSPC, KC_LCTL, KC_LALT, _______}},
+    {{KC_SPC, KC_ENT, KC_BSPC, KC_LCTL, KC_ESC, _______}},
     {{KC_LCTL, KC_LALT, KC_TAB, KC_LSFT, _______, KC_LGUI}},
 };
 
@@ -39,8 +41,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
     return true;
 }
 
-float tp_point[2]    = {0.0f, 0.0f};
-float tp_velocity[2] = {0.0f, 0.0f};
+float tp_point[2]       = {0.0f, 0.0f};
+float tp_oldvelocity[2] = {0.0f, 0.0f};
 struct VelHist {
     float history[10];
     int   count;
@@ -64,14 +66,11 @@ static float get_average(struct VelHist* h) {
     return avg / (float)cnt;
 }
 
-float tp_oldvelocity[2] = {0.0f, 0.0f};
-
 int scroll_update(int spd, int ch, bool on_touch) {
     float pt = tp_point[ch];
     if (on_touch) {
         float nspd = fmin(1.0f, (float)spd / 120.0f);
         pt += nspd;
-        tp_velocity[ch] = nspd;
 
         struct VelHist* vh = &hist[ch];
         update_history(vh, nspd);
@@ -149,12 +148,20 @@ void matrix_scan_user() {
 
         report_mouse_t mouse_rep = pointing_device_get_report();
 
-        float mx    = mouse_rep.x;
-        float my    = mouse_rep.y;
-        float xs    = fabs(mx);
-        float ys    = fabs(my);
-        xs          = fmax(1.0f, (xs / 18.0f));
-        ys          = fmax(1.0f, (ys / 15.0f));
+        static float moveLimit = 1.0f;
+
+        float mx  = mouse_rep.x;
+        float my  = mouse_rep.y;
+        float xs  = fabs(mx);
+        float ys  = fabs(my);
+        xs        = fmax(1.0f, (xs / 15.0f));
+        ys        = fmax(1.0f, (ys / 12.0f));
+        float len = sqrt(xs * xs + ys * ys);
+        if (len > moveLimit) {
+            xs = (xs / len) * moveLimit;
+            ys = (ys / len) * moveLimit;
+        }
+        moveLimit   = fmax(1.0f, len * 1.5f);
         mx          = fmin(127.0f, fmax(-127.0f, mx * xs * xs));
         my          = fmin(127.0f, fmax(-127.0f, my * ys * ys));
         mouse_rep.x = mx;

@@ -50,6 +50,10 @@ enum custom_keycodes {
 #define KC_DTAL RALT_T(KC_DOT)
 #define KC_CMGU RGUI_T(KC_COMM)
 #define KC_QUCT RCTL_T(JP_QUES)
+#define KC_L_SF RSFT_T(KC_L)
+#define KC_L_CT RCTL_T(KC_L)
+#define KC_S_SF RSFT_T(KC_S)
+#define KC_S_CT RCTL_T(KC_S)
 
 // Lower layer mod tap
 #define KC_F6SF LSFT_T(KC_F6)
@@ -79,7 +83,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //,---------------------------------------------------------------------------------------------------.
           KC_Q,     KC_W,     KC_E,     KC_R,     KC_T,     KC_Y,     KC_U,     KC_I,     KC_O,     KC_P,
   //|---------+---------+---------+---------+---------+---------+---------+---------+---------+---------|
-       KC_A_CT,     KC_S,     KC_D,     KC_F,     KC_G,     KC_H,     KC_J,     KC_K,     KC_L,  KC_SCCT,
+       KC_A_SF,  KC_S_CT,     KC_D,     KC_F,     KC_G,     KC_H,     KC_J,     KC_K,  KC_L_CT,  KC_SCSF,
   //|---------+---------+---------+---------+---------+---------+---------+---------+---------+---------|
        KC_Z_SF,  KC_X_AL,  KC_C_GU,     KC_V,     KC_B,     KC_N,     KC_M,  KC_CMGU,  KC_DTAL,  KC_SSSF,
   //`---------+---------+---------+---------+---------+---------+---------+---------+---------+---------'
@@ -103,7 +107,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //,---------------------------------------------------------------------------------------------------.
           KC_1,     KC_2,     KC_3,     KC_4,     KC_5,     KC_6,     KC_7,     KC_8,     KC_9,     KC_0,
   //|---------+---------+---------+---------+---------+---------+---------+---------+---------+---------|
-       KC_LCTL,  XXXXXXX,  KC_HOME,  KC_PGUP,   KC_TAB,  JP_COLN,   KC_ENT,    KC_UP,    JP_AT,  KC_TICT,
+       KC_LSFT,  KC_LCTL,  KC_HOME,  KC_PGUP,   KC_TAB,  JP_COLN,   KC_ENT,    KC_UP,    JP_AT,  JP_TILD,
   //|---------+---------+---------+---------+---------+---------+---------+---------+---------+---------|
        KC_LSFT,  KC_LALT,   KC_END,  KC_PGDN,C(KC_TAB),  JP_PIPE,  KC_LEFT,  KC_DOWN,  KC_RGHT,  KC_BLSF,
   //`---------+---------+---------+---------+---------+---------+---------+---------+---------+---------'
