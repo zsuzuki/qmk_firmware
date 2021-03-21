@@ -197,12 +197,12 @@ void matrix_scan_user(void) {
         } else {
             float xs = fabs(x);
             float ys = fabs(y);
-            xs       = fmax(1.0f, (xs / 25.0f));
-            ys       = fmax(1.0f, (ys / 20.0f));
+            xs       = fmax(1.0f, (xs / 30.0f));
+            ys       = fmax(1.0f, (ys / 25.0f));
             float mx = fmin(127.0f, fmax(-127.0f, x * xs));
             float my = fmin(127.0f, fmax(-127.0f, y * ys));
 
-            const float lowspd = 5.0f;
+            const float lowspd = 1.0f;
             if (mx > lowspd)
                 mx -= lowspd;
             else if (mx < -lowspd)
