@@ -32,7 +32,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
   [_RAISE] = LAYOUT( \
                 KC_SPC,   KC_TRNS, 
-     KC_TAB,    KC_LALT,  KC_ESC,
+     KC_SPC,    KC_ENT,   KC_BSPC,
      KC_LCTL,   KC_LGUI,  KC_LSFT
   ),
   [_LOWER] = LAYOUT( \
@@ -54,7 +54,7 @@ void report_button(bool pressed, int btn) {
     pointing_device_send();
 }
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+bool process_record_user(uint16_t keycode, keyrecord_t* record) {
     switch (keycode) {
         case MBTN1:
             report_button(record->event.pressed, MOUSE_BTN1);
@@ -97,51 +97,90 @@ void keyboard_post_init_user() {
     debug_mouse  = true;
 }
 
-static int moment[2];
+struct MoveCursor {
+    float point;
+    float history[10];
+    int   count;
+    float threshold;
+    float decelerate;
+};
+static struct MoveCursor moveCursor[4];
 
-int moment_spd(int spd, int ch) {
-    const int th = 40;
-    const int mx = 1000;
+static int mcUpdate(struct MoveCursor* mc, float n) {
+    int count          = mc->count;
+    int index          = count % 10;
+    mc->history[index] = n;
+    count++;
+    mc->count = count;
+    if (count > 10) count = 10;
+    float avg = 0.0f;
+    for (int i = 0; i < count; i++) {
+        avg += mc->history[i];
+        mc->history[i] *= mc->decelerate;
+    }
+    float point = mc->point + avg / (float)count;
+    int   dir   = 0;
+    if (point > mc->threshold) {
+        point -= mc->threshold;
+        dir = 1;
+    } else if (point < -mc->threshold) {
+        point += mc->threshold;
+        dir = -1;
+    }
+    mc->point = point;
+    return dir;
+}
 
-    int n = moment[ch];
-    if (abs(spd) > 70) {
-        spd *= abs(spd) > 100 ? 3 : 2;
+static void mcClear(struct MoveCursor* mc) {
+    mc->point = 0.0f;
+    mc->count = 0;
+    for (int i = 0; i < 0; i++) {
+        mc->history[i] = 0.0f;
     }
-    if ((n < 0 && spd > 0) || (n > 0 && spd < 0)) {
-        spd *= 2;
-    }
-    n += spd;
-    bool mv = true;
-    if (n > th) {
-        n -= th;
-    } else if (n < -th) {
-        n += th;
+}
+
+static int curmove_solo(int ch, int spd, int key, int pl, int mi) {
+    struct MoveCursor* mc = &moveCursor[ch];
+    mc->threshold         = 40.0f;
+    mc->decelerate        = 0.0f;
+    int hDir              = mcUpdate(mc, spd);
+    if (hDir > 0) {
+        if (key != pl) {
+            unregister_code(key);
+            key = pl;
+            register_code(key);
+        }
+    } else if (hDir < 0) {
+        if (key != mi) {
+            unregister_code(key);
+            key = mi;
+            register_code(key);
+        }
     } else {
-        mv = false;
+        unregister_code(key);
+        key = KC_NO;
     }
-    if (n > mx) {
-        n = mx;
-    } else if (n < -mx) {
-        n = -mx;
-    }
-    moment[ch] = n;
-
-    if (mv == false) {
-        return 0;
-    }
-    return n > 0 ? 1 : n < 0 ? -1 : 0;
+    return key;
 }
+
+static void curmove(int x, int y) {
+    static int hKey = KC_NO;
+    static int vKey = KC_NO;
+    hKey            = curmove_solo(0, x, hKey, KC_LEFT, KC_RIGHT);
+    vKey            = curmove_solo(1, y, vKey, KC_DOWN, KC_UP);
+}
+
+static int moment_spd(float spd, int ch) {
+    struct MoveCursor* mc = &moveCursor[ch + 2];
+    mc->threshold         = 20.0f;
+    mc->decelerate        = 1.0f;
+    return mcUpdate(mc, spd);
+}
+
 void moment_clr(void) {
-    moment[0] = 0;
-    moment[1] = 0;
-}
-
-void put_key(uint8_t key) {
-    add_key(key);
-    send_keyboard_report();
-    wait_ms(150);
-    del_key(key);
-    send_keyboard_report();
+    for (int i = 0; i < 4; i++) {
+        mcClear(&moveCursor[i]);
+    }
 }
 
 void matrix_scan_user(void) {
@@ -173,27 +212,7 @@ void matrix_scan_user(void) {
             mouse_rep.h = moment_spd(yspd, 0);
             mouse_rep.v = moment_spd(xspd, 1);
         } else if (IS_LAYER_ON(_LOWER)) {
-            static uint8_t key    = KC_NO;
-            const int      limspd = 15;
-            uint8_t        nkey   = KC_NO;
-            if (y > limspd) {
-                nkey = KC_LEFT;
-            } else if (y < -limspd) {
-                nkey = KC_RIGHT;
-            } else if (x > limspd) {
-                nkey = KC_DOWN;
-            } else if (x < -limspd) {
-                nkey = KC_UP;
-            } else {
-                nkey = KC_NO;
-            }
-
-            if (key != nkey) {
-                if (nkey != KC_NO) {
-                    put_key(nkey);
-                }
-                key = nkey;
-            }
+            curmove(y, x);
         } else {
             float xs = fabs(x);
             float ys = fabs(y);
@@ -202,19 +221,19 @@ void matrix_scan_user(void) {
             float mx = fmin(127.0f, fmax(-127.0f, x * xs));
             float my = fmin(127.0f, fmax(-127.0f, y * ys));
 
-            const float lowspd = 1.0f;
-            if (mx > lowspd)
-                mx -= lowspd;
-            else if (mx < -lowspd)
-                mx += lowspd;
-            else
-                mx = 0.0f;
-            if (my > lowspd)
-                my -= lowspd;
-            else if (my < -lowspd)
-                my += lowspd;
-            else
-                my = 0.0f;
+            // const float lowspd = 1.0f;
+            // if (mx > lowspd)
+            //     mx -= lowspd;
+            // else if (mx < -lowspd)
+            //     mx += lowspd;
+            // else
+            //     mx = 0.0f;
+            // if (my > lowspd)
+            //     my -= lowspd;
+            // else if (my < -lowspd)
+            //     my += lowspd;
+            // else
+            //     my = 0.0f;
             mouse_rep.x = -my;
             mouse_rep.y = mx;
             moment_clr();
