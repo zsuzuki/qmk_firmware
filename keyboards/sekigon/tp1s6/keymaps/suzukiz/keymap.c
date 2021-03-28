@@ -22,7 +22,7 @@
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     {{KC_BTN1, C(KC_TAB), KC_LSFT, KC_BTN2, MO(2), MO(1)}},
     {{KC_SPC, KC_ENT, KC_BSPC, KC_LCTL, KC_ESC, _______}},
-    {{KC_LCTL, KC_LALT, KC_TAB, KC_LSFT, _______, KC_LGUI}},
+    {{KC_LCTL, KC_LGUI, KC_TAB, KC_LSFT, _______, KC_LALT}},
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t* record) {

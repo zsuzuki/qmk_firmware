@@ -37,22 +37,22 @@
 
 static uint8_t pointing_device_button = 0;
 static bool    send_flag              = false;
-static bool    touch_state            = false;
 static bool    tap_enable             = true;
+static bool    on_touch               = false;
 
-void pointing_device_set_button(uint8_t btn) {
+void pointing_device_set_button_mtch6102(uint8_t btn) {
     pointing_device_button |= btn;
     send_flag = true;
 }
 
-void pointing_device_clear_button(uint8_t btn) {
+void pointing_device_clear_button_mtch6102(uint8_t btn) {
     pointing_device_button &= ~btn;
     send_flag = true;
 }
 
-bool pointing_device_get_on_touch(void) { return touch_state; }
+void pointing_device_set_tap_enable(bool en) { tap_enable = en; }
 
-void pointing_device_set_tap_enable(bool e) { tap_enable = e; }
+bool pointing_device_get_on_touch(void) { return on_touch; }
 
 typedef union {
     struct {
@@ -106,12 +106,13 @@ bool read_mtch6102(mtch6102_data_t* const data) {
 
 bool process_mtch6102(mtch6102_data_t const* const data, report_mouse_t* const rep_mouse) {
     static uint16_t x_buf, y_buf;
+    static bool     touch_state;
     static bool     release_button = false;
 
     uint16_t x_dif, y_dif;
 
-    bool new_touch = (data->status & TOUCH);
-    if (touch_state && new_touch) {
+    on_touch = (data->status & TOUCH);
+    if (touch_state && on_touch) {
         x_dif        = data->x - x_buf;
         y_dif        = data->y - y_buf;
         rep_mouse->x = x_dif * MTCH6102_X_DIR;
@@ -134,7 +135,7 @@ bool process_mtch6102(mtch6102_data_t const* const data, report_mouse_t* const r
         rep_mouse->buttons = pointing_device_button;
     }
 
-    touch_state = new_touch;
+    touch_state = on_touch;
     x_buf       = data->x;
     y_buf       = data->y;
 
