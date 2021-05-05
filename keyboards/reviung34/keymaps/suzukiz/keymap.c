@@ -41,7 +41,7 @@ enum layer_names { _BASE, _LOWER, _RAISE, _ADJUST };
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_BASE] = LAYOUT_reviung34(
-    CT_Q,    KC_W,    KC_E,    KC_R,    KC_T,          KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,
+    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,          KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,
     KC_A,    KC_S,    KC_D,    KC_F,    KC_G,          KC_H,    KC_J,    KC_K,    KC_L,    JP_SCLN,
     KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,          KC_N,    KC_M,    KC_CMGU, KC_DTAL, KC_SLSH,
                                KC_C_BS, LOWER,         KC_R_SPC, KC_RSFT
@@ -49,22 +49,22 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_LOWER] = LAYOUT_reviung34(
     JP_DQUO, JP_HASH, JP_DLR,  JP_PERC, JP_AMPR,       JP_QUOT, JP_LPRN, JP_RPRN, JP_CIRC, JP_EQL,
-    JP_EXLM, _______, _______, KC_DEL,  KC_ESC,        JP_ASTR, JP_MINS, JP_LBRC, JP_RBRC, JP_PLUS,
-    KC_LSFT, _______, _______, JP_MEISU,JP_MKANA,      JP_YEN,  MC_BSLH, JP_LABK, JP_RABK, JP_UNDS,
+    JP_EXLM, KC_LGUI, KC_LCTL, KC_DEL,  KC_ESC,        JP_ASTR, JP_MINS, JP_LBRC, JP_RBRC, JP_PLUS,
+    KC_LSFT, G(KC_X), G(KC_C), JP_MEISU,JP_MKANA,      JP_YEN,  MC_BSLH, JP_LABK, JP_RABK, JP_UNDS,
                                _______, _______,       ADJUST,  _______
   ),
   
   [_RAISE] = LAYOUT_reviung34(
     KC_1,    KC_2,    KC_3,    KC_4,    KC_5,          KC_6,    KC_7,    KC_8,    KC_9,    KC_0,
-    KC_MINS, KC_EQL,  KC_HOME, KC_PGUP, KC_TAB,        JP_COLN, KC_ENT,  KC_UP,   JP_AT,   JP_TILD,
-    KC_LSFT, KC_ESC,  KC_END,  KC_PGDN, C(KC_TAB),     JP_PIPE, KC_LEFT, KC_DOWN, KC_RGHT, KC_BLSF,
+    C(KC_A), C(KC_E), KC_HOME, KC_PGUP, KC_TAB,        JP_COLN, KC_ENT,  KC_UP,   JP_AT,   JP_TILD,
+    KC_LSFT, KC_LALT, KC_END,  KC_PGDN, C(KC_TAB),     JP_PIPE, KC_LEFT, KC_DOWN, KC_RGHT, KC_BLSF,
                                _______, ADJUST,        _______, _______
   ),
   
   [_ADJUST] = LAYOUT_reviung34(
-    KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,         XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_PSCR,
-    RGB_TOG, KC_F7,   KC_F8,   KC_F9,   KC_F10,        XXXXXXX, KC_BTN1, KC_MS_U, KC_BTN2, XXXXXXX,
-    RGB_MOD, KC_F12,  KC_CAPS, XXXXXXX, XXXXXXX,       RESET,   KC_MS_L, KC_MS_D, KC_MS_R, XXXXXXX,
+    KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,         KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,
+    RGB_TOG, XXXXXXX, XXXXXXX, KC_WH_U, KC_F11,        KC_F12,  KC_BTN1, KC_MS_U, KC_BTN2, XXXXXXX,
+    RGB_MOD, XXXXXXX, XXXXXXX, KC_WH_D, XXXXXXX,       XXXXXXX, KC_MS_L, KC_MS_D, KC_MS_R, RESET,
                                _______, _______,       _______, _______
   ),
 };

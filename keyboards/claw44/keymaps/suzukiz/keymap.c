@@ -18,10 +18,10 @@ enum layer_number {
 #define KC_RST RESET
 #define KC_L_SPC LT(_LOWER, KC_SPC)  // lower
 #define KC_R_ENT LT(_RAISE, KC_ENT)  // raise
-#define KC_G_JA LGUI_T(KC_LANG1)  // cmd or win
-#define KC_G_EN LGUI_T(KC_LANG2)  // cmd or win
-#define KC_C_BS LCTL_T(KC_BSPC)  // ctrl
-#define KC_A_DEL ALT_T(KC_DEL)  // alt
+#define KC_G_JA LGUI_T(KC_LANG1)     // cmd or win
+#define KC_G_EN LGUI_T(KC_LANG2)     // cmd or win
+#define KC_C_BS LCTL_T(KC_BSPC)      // ctrl
+#define KC_A_DEL ALT_T(KC_DEL)       // alt
 
 // add by suzukiz
 #define LOWER MO(_LOWER)
@@ -68,7 +68,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+--------+--------|   |--------+--------+--------+--------+--------+--------|
      _______, JP_EXLM, _______, _______, KC_DEL , KC_ESC ,     JP_ASTR, JP_MINS, JP_LBRC, JP_RBRC, JP_PLUS, _______,
   //|--------+--------+--------+--------+--------+--------|   |--------+--------+--------+--------+--------+--------|
-     _______, _______, _______, _______,JP_MEISU,JP_MKANA,     JP_YEN , MC_BSLH, JP_LABK, JP_RABK, JP_UNDS, _______,
+     _______, _______, G(KC_X), G(KC_C),JP_MEISU,JP_MKANA,     JP_YEN , MC_BSLH, JP_LABK, JP_RABK, JP_UNDS, _______,
   //`--------+--------+--------+--------+--------+--------/   \--------+--------+--------+--------+--------+--------'
                        RESET  , _______, _______, _______,     _______,  ADJUST, _______, _______
   //                 `--------+--------+--------+--------'   `--------+--------+--------+--------'
@@ -76,7 +76,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_ADJUST] = LAYOUT( \
   //,--------+--------+--------+--------+--------+--------.   ,--------+--------+--------+--------+--------+--------.
-     _______, _______, _______, _______, _______, _______,     _______, _______, _______, _______, _______, _______,
+     _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,       KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  _______,
   //|--------+--------+--------+--------+--------+--------|   |--------+--------+--------+--------+--------+--------|
      _______, _______, _______, _______, _______, _______,     _______, KC_BTN1, KC_MS_U, KC_BTN2, _______, _______,
   //|--------+--------+--------+--------+--------+--------|   |--------+--------+--------+--------+--------+--------|
@@ -100,6 +100,9 @@ void render_layer_state(void) {
             break;
         case _LOWER:
             oled_write_ln_P(PSTR("Layer: Lower"), false);
+            break;
+        case _ADJUST:
+            oled_write_ln_P(PSTR("Layer: Adjust"), false);
             break;
         default:
             oled_write_ln_P(PSTR("Layer: Undefined"), false);
