@@ -50,7 +50,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_LOWER] = LAYOUT_reviung34(
     JP_DQUO, JP_HASH, JP_DLR,  JP_PERC, JP_AMPR,       JP_QUOT, JP_LPRN, JP_RPRN, JP_CIRC, JP_EQL,
     JP_EXLM, KC_LGUI, KC_LCTL, KC_DEL,  KC_ESC,        JP_ASTR, JP_MINS, JP_LBRC, JP_RBRC, JP_PLUS,
-    KC_LSFT, G(KC_X), G(KC_C), JP_MEISU,JP_MKANA,      JP_YEN,  MC_BSLH, JP_LABK, JP_RABK, JP_UNDS,
+    KC_LSFT, KC_LALT, _______, JP_MEISU,JP_MKANA,      JP_YEN,  MC_BSLH, JP_LABK, JP_RABK, JP_UNDS,
                                _______, _______,       ADJUST,  _______
   ),
   
@@ -64,7 +64,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_ADJUST] = LAYOUT_reviung34(
     KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,         KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,
     RGB_TOG, XXXXXXX, XXXXXXX, KC_WH_U, KC_F11,        KC_F12,  KC_BTN1, KC_MS_U, KC_BTN2, XXXXXXX,
-    RGB_MOD, XXXXXXX, XXXXXXX, KC_WH_D, XXXXXXX,       XXXXXXX, KC_MS_L, KC_MS_D, KC_MS_R, RESET,
+    AG_TOGG, XXXXXXX, XXXXXXX, KC_WH_D, JP_MHEN,       JP_HENK, KC_MS_L, KC_MS_D, KC_MS_R, RESET,
                                _______, _______,       _______, _______
   ),
 };
